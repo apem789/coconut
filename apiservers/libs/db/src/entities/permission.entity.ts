@@ -15,7 +15,8 @@ export class Permission {
   @Column({ nullable: true, comment: '注解' })
   decription: string
 
-  @Column({ nullable: true, comment: '父级权限的id' })
+  // 遵循sql的字段规范
+  @Column({ name: 'parent_id', nullable: true, comment: '父级权限的id' })
   parentId: number
 
   @Column({ default: 300, comment: '权限类型: 100 菜单 200 按钮 300 通用' })

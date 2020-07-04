@@ -7,6 +7,7 @@ import { AdminLoginDto } from '@libs/common/dto/admin/admin-login.dto';
 import { LocalAuthGuard } from './guard/local-auth.guard';
 import { Admin } from '@libs/db/entities/admin.entity';
 import { JwtAuthGuard } from './guard/jwt-auth.guard';
+import { NotJwtAuthGuard } from '@libs/common/decorator/no-jwt-guard.decorator';
 
 @ApiTags('授权模块')
 @Controller('auth')
@@ -17,6 +18,7 @@ export class AuthController {
 
   @ApiOperation({ summary: '登录' })
   @UseGuards(LocalAuthGuard)
+  @NotJwtAuthGuard()
   @Post('login')
   login(
     @Body() adminLoginDto: AdminLoginDto,
@@ -29,15 +31,16 @@ export class AuthController {
   }
 
   @ApiOperation({ summary: '注册' })
+  @NotJwtAuthGuard()
   @Post('register')
   register(@Body() adminCreateDto: AdminCreateDto) {
     return this.authService.register(adminCreateDto)
   }
 
   // 测试
+  // 最后得删掉这个危险的接口
   @ApiOperation({ summary: '测试jwt令牌' })
   @ApiBearerAuth()
-  @UseGuards(JwtAuthGuard)
   @Get('test')
   test(@Req() req) {
     const currentAdmin = req.user

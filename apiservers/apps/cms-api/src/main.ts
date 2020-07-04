@@ -7,14 +7,18 @@ async function bootstrap() {
   const app = await NestFactory.create(AppModule)
 
   // 配置swagger
+  const title = process.env.SWAGGER_CMS_TITLE || '文档'
+  const description = process.env.SWAGGER_CMS_DESCRIPTION || '接口文档'
+  const version = process.env.SWAGGER_CMS_VERSER || '1.0.0'
+  const url = process.env.SWAGGER_CMS_URL||'/cms-docs'
   const swaggerOptions = new DocumentBuilder()
-    .setTitle('cms-api 接口文档')
-    .setDescription('cms接口文档')
-    .setVersion('1.0.0')
+    .setTitle(title)
+    .setDescription(description)
+    .setVersion(version)
     .addBearerAuth()
     .build()
   const swaggerDocument = SwaggerModule.createDocument(app, swaggerOptions)
-  SwaggerModule.setup('/cms-doc', app, swaggerDocument)
+  SwaggerModule.setup(url, app, swaggerDocument)
 
   const cmsPort = process.env.APP_CMS_API_PORT || 3000
   await app.listen(cmsPort)

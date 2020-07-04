@@ -31,7 +31,7 @@ export class Unauthorized extends APIException {
 }
 
 /** 禁止访问 */
-export class Forbiddent extends APIException {
+export class Forbidden extends APIException {
   constructor(message?: string, errorCode?: number) {
     const response: Record<string, any> = {
       message: message || ErrorValueEnum.ERROR_TYPE_403,

@@ -7,7 +7,7 @@ interface Response<T> {
   data: T;
 }
 
-/** 全局-返回消息格式转换拦截器 */
+/** 全局-响应成功-返回消息格式转换拦截器 */
 @Injectable()
 export class ResponseInterceptor<T> implements NestInterceptor<T, Response<T>> {
   intercept(context: ExecutionContext, next: CallHandler<any>):  Observable<Response<T>> {

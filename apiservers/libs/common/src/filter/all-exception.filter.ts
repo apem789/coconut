@@ -12,6 +12,8 @@ export class AllExceptionFilter implements ExceptionFilter {
     // 取异常的message,status 
     const status = exception instanceof HttpException ? exception.getStatus() : HttpStatus.INTERNAL_SERVER_ERROR;
 
+    // TODO
+    // 根据自己的业务需求来做异常过滤
     // APIException 继承 HttpException
     // 加入自己的异常处理逻辑
     // 对于自定义异常,需要写入错误码
